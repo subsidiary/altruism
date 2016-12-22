@@ -1,5 +1,7 @@
 package com.altruismradio;
 
-public class App {
+import android.app.Application;
+
+public class App extends Application{
 
 }
