@@ -1,5 +1,7 @@
 package com.altruismradio.api;
 
+import com.altruismradio.api.server.ServerException;
+
 /**
  * Created by yuriy on 22.12.16.
  */
@@ -16,6 +18,10 @@ public class ApiException extends Exception{
     public ApiException(Throwable cause) {
         super(cause);
         this.code = 0;
+        try {
+            ServerException e = (ServerException) cause;
+            this.code = e.code;
+        }catch (Exception ignore){}
         this.message = cause.getMessage();
     }
 

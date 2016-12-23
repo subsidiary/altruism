@@ -1,5 +1,7 @@
 package com.altruismradio.api;
 
+import android.support.annotation.NonNull;
+
 import com.altruismradio.api.objects.Audio;
 import com.altruismradio.api.objects.Station;
 import com.altruismradio.api.server.Server;
@@ -140,5 +142,35 @@ public abstract class Api {
                 listener.onFailure(new ApiException(exception));
             }
         });
+    }
+
+
+    public static void sendEmail(final ApiRequestListener listener,@NonNull String subject,@NonNull String text){
+        try {
+            Server.request(new ServerRequest("etc.mail","subject", URLEncoder.encode(subject,"UTF-8"),"text",URLEncoder.encode(text,"UTF-8")){
+                @Override
+                public void onSuccess(ServerResponse response) {
+                    try {
+                        if(response.getInt("code")==0){
+                            listener.onFailure(new ApiException(
+                                    response.getJSONObject("response").getInt("error_code"),
+                                    response.getJSONObject("response").getString("error")
+                            ));
+                        }else{
+                            listener.onSuccess(null);
+                        }
+                    } catch (JSONException e) {
+                        listener.onFailure(new ApiException(e));
+                    }
+                }
+
+                @Override
+                public void onFailure(ServerException exception) {
+                    listener.onFailure(new ApiException(exception));
+                }
+            });
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
     }
 }

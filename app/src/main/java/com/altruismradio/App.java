@@ -1,6 +1,7 @@
 package com.altruismradio;
 
 import android.app.Application;
+import android.content.Context;
 
 import com.altruismradio.api.Api;
 import com.altruismradio.api.ApiException;
@@ -11,11 +12,12 @@ import com.altruismradio.api.objects.Station;
 import java.util.List;
 
 public class App extends Application{
+    public static Context context;
 
     @Override
     public void onCreate() {
         super.onCreate();
-
+        context = this;
 
         Api.getAudio(new ApiRequestListener() {
             @Override
@@ -36,10 +38,12 @@ public class App extends Application{
 
             @Override
             public void onFailure(ApiException exception) {
+                System.out.println("----------------------------------------------------------");
                 System.out.println("Error message: "+exception.message);
                 System.out.println("Error code: "+exception.code);
             }
         },1793);
+
 
         Api.getStations(new ApiRequestListener() {
             @Override
@@ -48,12 +52,13 @@ public class App extends Application{
                 System.out.println("----------------------------------------------------------");
                 System.out.println("Got names of the stations :");
                 for(int i=0;i<stations.size();i++){
-                    System.out.println((i+1)+" - "+stations.get(i).name);
+                    System.out.println((i+1)+" - "+stations.get(i).name+" ("+stations.get(i).id+")");
                 }
             }
 
             @Override
             public void onFailure(ApiException exception) {
+                System.out.println("----------------------------------------------------------");
                 System.out.println("Error message: "+exception.message);
                 System.out.println("Error code: "+exception.code);
             }
@@ -82,10 +87,26 @@ public class App extends Application{
 
             @Override
             public void onFailure(ApiException exception) {
+                System.out.println("----------------------------------------------------------");
                 System.out.println("Error message: "+exception.message);
                 System.out.println("Error code: "+exception.code);
             }
         },16);
+
+
+
+        Api.sendEmail(new ApiRequestListener() {
+            @Override
+            public void onSuccess(Object object) {
+                System.out.println("----------------------------------------------------------");
+                System.out.println("Yes!!!!");
+            }
+            @Override
+            public void onFailure(ApiException exception) {
+                System.out.println("----------------------------------------------------------");
+                System.out.println("Error message: "+exception.message);
+                System.out.println("Error code: "+exception.code);
+            }
+        },"This method sends an email to me","With someones feedback about app, so if you run this code, i'll get the email");
     }
-    
 }

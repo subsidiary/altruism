@@ -57,7 +57,7 @@ public abstract class Server {
                     in.close();
                     request.onSuccess(new ServerResponse(response.toString(),System.currentTimeMillis()-start));
                 }catch (Exception e){
-                    request.onFailure(new ServerException(e));
+                    request.onFailure(new ServerException(100, "Couldn't connect to the server"));
                 }
             }
         }.start();
