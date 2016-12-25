@@ -19,7 +19,7 @@ public class App extends Application{
         super.onCreate();
         context = this;
 
-        Api.getAudio(new ApiRequestListener() {
+/*        Api.getAudio(new ApiRequestListener() {
             @Override
             public void onSuccess(Object object) {
                 Audio audio = (Audio) object;
@@ -107,6 +107,6 @@ public class App extends Application{
                 System.out.println("Error message: "+exception.message);
                 System.out.println("Error code: "+exception.code);
             }
-        },"This method sends an email to me","With someones feedback about app, so if you run this code, i'll get the email");
+        },"This method sends an email to me","With someones feedback about app, so if you run this code, i'll get the email");*/
     }
 }

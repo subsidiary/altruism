@@ -1,13 +1,159 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:fitsSystemWindows="true">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Congratulations! You are a UI designer now ."
-        android:id="@+id/textView"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
-</RelativeLayout>
+
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <include layout="@layout/toolbar"/>
+
+        </android.support.design.widget.AppBarLayout>
+
+
+
+        <com.sothree.slidinguppanel.SlidingUpPanelLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/sliding_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="bottom"
+            app:umanoDragView="@+id/dragView"
+            app:umanoOverlay="true"
+            app:umanoPanelHeight="@dimen/controls_height"
+            app:umanoShadowHeight="4dp">
+
+            <!-- MAIN CONTENT -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/mainView"
+                android:orientation="vertical">
+                <com.altruismradio.activities.views.SlideshowView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorPrimaryLight"
+                    android:id="@+id/slideshow"/>
+            </RelativeLayout>
+
+            <!-- SLIDING LAYOUT -->
+            <RelativeLayout
+                android:id="@+id/dragView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/colorPrimaryLight"
+                android:clipChildren="false"
+                android:clipToPadding="false">
+
+
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="@dimen/controls_height"
+                    android:id="@+id/title"
+                    android:background="@color/colorPrimary"
+                    android:layout_gravity="top"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/default_name"
+                        android:textColor="@color/whiteText"
+                        android:textSize="21sp"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/default_artist"
+                        android:textColor="@color/whiteText"
+                        android:textSize="16sp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="7dp"
+                        android:alpha="0.66" />
+                </RelativeLayout>
+
+                <ProgressBar
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                    android:progress="50"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/controls_height"
+                    android:background="@color/colorPrimaryLight"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/title">
+
+                    <ImageButton
+                        android:layout_width="@dimen/controls_height"
+                        android:layout_height="@dimen/controls_height"
+                        android:src="@mipmap/ic_skip_previous_white_36dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_alignParentLeft="true"
+                        android:id="@+id/previous_btn"
+                        android:background="@null" />
+                    <ImageButton
+                        android:layout_width="@dimen/controls_height"
+                        android:layout_height="@dimen/controls_height"
+                        android:src="@mipmap/ic_skip_next_white_36dp"
+                        android:layout_centerHorizontal="true"
+                        android:id="@+id/next_btn"
+                        android:layout_toRightOf="@+id/previous_btn"
+                        android:background="@null" />
+
+
+                    <ImageButton
+                        android:layout_width="@dimen/small_btn"
+                        android:layout_height="@dimen/small_btn"
+                        android:layout_margin="@dimen/small_btn_margin"
+                        android:src="@mipmap/ic_share_white_24dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerHorizontal="true"
+                        android:id="@+id/share_btn"
+                        android:background="@null" />
+                </RelativeLayout>
+
+            </RelativeLayout>
+        </com.sothree.slidinguppanel.SlidingUpPanelLayout>
+
+
+        <android.support.design.widget.FloatingActionButton
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/fab"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:layout_marginBottom="@dimen/fab_margin_bottom"
+            android:layout_marginRight="@dimen/fab_margin_right"
+            android:src="@mipmap/ic_play_arrow_white_36dp"
+            app:backgroundTint="@color/colorAccent"
+            app:fabSize="normal"/>
+
+    </android.support.design.widget.CoordinatorLayout>
+
+
+    <include layout="@layout/navigation"/>
+
+</android.support.v4.widget.DrawerLayout>

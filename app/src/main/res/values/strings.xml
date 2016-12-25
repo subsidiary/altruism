@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Altruism Radio</string>
+    <string name="navigation_close">Close</string>
+    <string name="navigation_open">Open</string>
+    <string name="default_name">Name</string>
+    <string name="default_artist">Artist</string>
+
+    <string name="stations">Stations</string>
 </resources>
